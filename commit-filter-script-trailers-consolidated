@@ -1,0 +1,58 @@
+
+var lines = commit.Message.Split(Environment.NewLine.ToCharArray()).ToList();
+
+// ----------------------------------------------------------------------------
+// Update git trailers
+// ----------------------------------------------------------------------------
+
+// Fix typo: Co-Autohered-By -> Co-authored-by
+for (int idx = 0; idx < lines.Count; idx++)
+{
+    lines[idx] = lines[idx].Replace("Co-Autohered-By:", "Co-authored-by:");
+    lines[idx] = lines[idx].Replace("Co-Authored:", "Co-authored-by:");
+    lines[idx] = lines[idx].Replace("Co-Authored-By:", "Co-authored-by:");
+    lines[idx] = lines[idx].Replace("Co-Authored-by:", "Co-authored-by:");
+}
+
+// Remove empty line between "From: " (or "Co-authored-by: ") and "git-svn-id: " line
+if (lines.Count >= 6 && lines[lines.Count - 2].StartsWith("git-svn-id: "))
+{
+  if (lines[lines.Count - 4].StartsWith("From: ")
+      || lines[lines.Count - 4].StartsWith("Co-authored-by: "))
+  {
+    lines.RemoveAt(lines.Count - 3);
+  }
+}
+
+// Remove empty line between "Co-authored-by: " and "From: "
+if (lines.Count >= 7 && lines[lines.Count - 3].StartsWith("From: "))
+{
+  if (lines[lines.Count - 5].StartsWith("Co-authored-by: "))
+  {
+    lines.RemoveAt(lines.Count - 4);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Remove "From:" line and set commit name and email
+// ----------------------------------------------------------------------------
+string from = "";
+for(int idx = lines.Count - 1; idx >= 0; idx--)
+{
+    if (lines[idx].StartsWith("From:"))
+    {
+        from = lines[idx].Substring(6);
+        // lines.RemoveAt(idx);
+        break;
+    }
+}
+if (!String.IsNullOrEmpty(from) && from.IndexOf(">") > 0)
+{
+    string name = from.Substring(0, from.IndexOf("<") - 1);
+    string email = from.Substring(from.IndexOf("<") + 1, from.IndexOf(">") - from.IndexOf("<") - 1);
+    commit.AuthorName = name;
+    commit.AuthorEmail = email;
+}
+
+commit.Message = string.Join(Environment.NewLine, lines);
+
