@@ -3,9 +3,27 @@
 ## Steps
 
 
+(0) Prerequisites
+
+```
+git clone git@github.com:jcfr/Slicer-github-transition-scripts.git
+
+TRANSITION_SCRIPTS_DIR=$(pwd)/Slicer-github-transition-scripts
+
+# TRANSITION_SCRIPTS_DIR=/home/jcfr/Projects/Slicer-github-transition-scripts
+
+git clone https://github.com/Slicer/Slicer Slicer4Migration
+
+SOURCE_DIR=$(pwd)/Slicer4Migration
+
+# SOURCE_DIR=/home/jcfr/Projects/Slicer4Migration
+```
+
 (1) create branches
 
 ```
+cd ${SOURCE_DIR}
+
 git checkout -b master-no-data origin/master
 git checkout -b master-410-no-data origin/master-410
 git checkout -b master-411-no-data origin/master-411
@@ -19,6 +37,8 @@ git checkout -b master-48-no-data origin/master-48
 (2) for each "master*-no-data" branches, list files to remove
 
 ```
+  cd ${SOURCE_DIR}
+
   for REFERENCE_BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
 
     BRANCH=${REFERENCE_BRANCH}-no-data
@@ -47,6 +67,8 @@ git checkout -b master-48-no-data origin/master-48
 # (3) Remove files
 
 ```
+  cd ${SOURCE_DIR}
+
   for REFERENCE_BRANCH in master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
 
     # BRANCH=master
@@ -60,7 +82,7 @@ git checkout -b master-48-no-data origin/master-48
     rm -rf /tmp/Slicer4Migration-extracted-data-${BRANCH}
     > /tmp/GIT_MIGRATION_DATA_REMOVED.txt
     cp /tmp/candidates-${REFERENCE_BRANCH} /tmp/candidates
-    git filter-branch -f --tree-filter '/home/jcfr/Projects/Slicer4MigrationSB/tree-filter-remove-data.py'
+    git filter-branch -f --tree-filter "${TRANSITION_SCRIPTS_DIR}/tree-filter-remove-data.py"
     mv /tmp/Slicer4Migration-extracted-data /tmp/Slicer4Migration-extracted-data-${BRANCH}
 
   done
@@ -69,14 +91,16 @@ git checkout -b master-48-no-data origin/master-48
 (4) Consolidate git trailers, set author name and email based on "From:", update author and commiter
 
 ```
+  cd ${SOURCE_DIR}
+
   for REFERENCE_BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
     BRANCH=${REFERENCE_BRANCH}-no-data
     echo ""
     git checkout ${BRANCH}
 
-    git branch -D ${BRANCH}-trailers-consolidated || true
+    git branch -D ${BRANCH}-trailers-consolidated > /dev/null 2>&1 || true
 
-    cp /home/jcfr/Projects/Slicer4MigrationSB/commit-filter-script-trailers-consolidated .
+    cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-trailers-consolidated .
     git-rocket-filter --branch ${BRANCH}-trailers-consolidated  --commit-filter-script ./commit-filter-script-trailers-consolidated
   done
 ```
@@ -88,13 +112,15 @@ git checkout -b master-48-no-data origin/master-48
   # Branching point: This is the commit from which the SVN release branch was created.
 
   # master # NA
-  # master-410 # 
-  # master-411 # 
-  # master-42 # 
-  # master-43 # 
+  # master-410 #
+  # master-411 #
+  # master-42 #
+  # master-43 #
   # master-431 # manually created from "master-43-no-data${BRANCH_SUFFIX}-complete-history" by resetting to SHA corresponding to 22601
-  # master-46 # 
-  # master-48 # 
+  # master-46 #
+  # master-48 #
+
+  cd ${SOURCE_DIR}
 
   BRANCH_SUFFIX=-trailers-consolidated
 
@@ -126,6 +152,8 @@ git checkout -b master-48-no-data origin/master-48
   
 
 (6) Experiment by publishing on jcfr/Slicer-Git
+
+  cd ${SOURCE_DIR}
 
   # for consistency create the "-complete-history" associated with "master"
   branch=master
