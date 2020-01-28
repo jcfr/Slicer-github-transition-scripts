@@ -3,322 +3,357 @@
 Dictionary<string,string> names = new Dictionary<string,string>();
 Dictionary<string,string> emails = new Dictionary<string,string>();
 
-// for email in $(git log --all --pretty="%ae%n%ce" | sort | uniq | ack "\-[a-z0-9]+$"); do echo "emails.add(\"${email}\", \"\")"; done
+// List svn emails to update
+//   for email in $(git log --all --pretty="%ae%n%ce" | sort | uniq | ack "\-[a-z0-9]+$"); do echo "emails.Add(\"${email}\", \"\")"; done
 
-
-// Who are these people ?
-//emails.add("bess@3bd1e089-480b-0410-8dfb-8563597acbee", ""); // Worked on vtkITK and transforms - ge with jim miller
-//emails.add("mike@3bd1e089-480b-0410-8dfb-8563597acbee", ""); // Worked on SlicerWF / WFEngine / Workflow Engine
-
-// Are these correct ?
-
-names.add("taylor", "Taylor Braun-Jones");
-emails.add("taylor@3bd1e089-480b-0410-8dfb-8563597acbee", "taylor@braun-jones.org");
-
-names.add("samset", "Eigil Samset");
-emails.add("samset@3bd1e089-480b-0410-8dfb-8563597acbee", "eigil.samset@ge.com");
-
+// List non-svn emails and names:
+//   git log --all --pretty="%an %ae%n%cn %ce" | sort | uniq | ack -v "\-[a-z0-9]+$"
 
 // ----------------------------------------------------------------------------
-names.add("agirault", "Alexis Girault");
-emails.add("agirault@3bd1e089-480b-0410-8dfb-8563597acbee", "alexis.girault@kitware.com");
+names.Add("agirault", "Alexis Girault");
+emails.Add("agirault@3bd1e089-480b-0410-8dfb-8563597acbee", "alexis.girault@kitware.com");
 
-names.add("alexy", "Alex Yarmarkovich");
-emails.add("alexy@3bd1e089-480b-0410-8dfb-8563597acbee", "alexy@bwh.harvard.edu");
+names.Add("alexy", "Alex Yarmarkovich");
+emails.Add("alexy@3bd1e089-480b-0410-8dfb-8563597acbee", "alexy@bwh.harvard.edu");
 
-names.add("andy", "Andy Cedilnik");
-emails.add("andy@3bd1e089-480b-0410-8dfb-8563597acbee", "andy.cedilnik@kitware.com");
+names.Add("andy", "Andy Cedilnik");
+emails.Add("andy@3bd1e089-480b-0410-8dfb-8563597acbee", "andy.cedilnik@kitware.com");
 
-names.add("atriveg", "Antonio Tristan Vega");
-emails.add("atriveg@3bd1e089-480b-0410-8dfb-8563597acbee", "atriveg@lpi.tel.uva.es"); // "atriveg@bwh.harvard.edu"
+names.Add("atriveg", "Antonio Tristan Vega");
+emails.Add("atriveg@3bd1e089-480b-0410-8dfb-8563597acbee", "atriveg@lpi.tel.uva.es"); // "atriveg@bwh.harvard.edu"
 
-names.add("awiles", "Andrew Wiles");
-emails.add("awiles@3bd1e089-480b-0410-8dfb-8563597acbee", "awiles@ndigital.com");
+names.Add("awiles", "Andrew Wiles");
+emails.Add("awiles@3bd1e089-480b-0410-8dfb-8563597acbee", "awiles@ndigital.com");
 
-names.add("aylward", "Stephen Aylward");
-emails.add("aylward@3bd1e089-480b-0410-8dfb-8563597acbee", "Stephen.Aylward@kitware.com");
+names.Add("aylward", "Stephen Aylward");
+emails.Add("aylward@3bd1e089-480b-0410-8dfb-8563597acbee", "Stephen.Aylward@kitware.com");
 
-names.add("barre", "Sebastien BARRE");
-emails.add("barre@3bd1e089-480b-0410-8dfb-8563597acbee", "sebastien.barre@kitware.com");
+names.Add("barre", "Sebastien BARRE");
+emails.Add("barre@3bd1e089-480b-0410-8dfb-8563597acbee", "sebastien.barre@kitware.com");
 
-names.add("benjamin.long", "Benjamin Long");
-emails.add("benjamin.long@3bd1e089-480b-0410-8dfb-8563597acbee", "benjamin.long@kitware.com");
+names.Add("benjamin.long", "Benjamin Long");
+emails.Add("benjamin.long@3bd1e089-480b-0410-8dfb-8563597acbee", "benjamin.long@kitware.com");
 
-names.add("blezek", "Daniel Blezek");
-emails.add("blezek@3bd1e089-480b-0410-8dfb-8563597acbee", "Blezek.Daniel@mayo.edu");
+names.Add("bess", Ying-Lin Lee");
+emails.Add("bess@3bd1e089-480b-0410-8dfb-8563597acbee", "bess.lee@ge.com");
 
-names.add("bpaniagua", "Beatriz Paniagua");
-emails.add("bpaniagua@3bd1e089-480b-0410-8dfb-8563597acbee", "beatriz.paniagua@kitware.com");
+names.Add("blezek", "Daniel Blezek");
+emails.Add("blezek@3bd1e089-480b-0410-8dfb-8563597acbee", "Blezek.Daniel@mayo.edu");
 
-names.add("casey.goodlett", "Casey Goodlett");
-emails.add("casey.goodlett@3bd1e089-480b-0410-8dfb-8563597acbee", "casey.goodlett@kitware.com");
+names.Add("bpaniagua", "Beatriz Paniagua");
+emails.Add("bpaniagua@3bd1e089-480b-0410-8dfb-8563597acbee", "beatriz.paniagua@kitware.com");
 
-names.add("christopher.mullins", "Christopher Mullins");
-emails.add("christopher.mullins@3bd1e089-480b-0410-8dfb-8563597acbee", "christopher.mullins@kitware.com");
+names.Add("casey.goodlett", "Casey Goodlett");
+emails.Add("casey.goodlett@3bd1e089-480b-0410-8dfb-8563597acbee", "casey.goodlett@kitware.com");
 
-names.add("clisle", "Curt Lisle");
-emails.add("clisle@3bd1e089-480b-0410-8dfb-8563597acbee", "clisle@knowledgevis.com");
+names.Add("christopher.mullins", "Christopher Mullins");
+emails.Add("christopher.mullins@3bd1e089-480b-0410-8dfb-8563597acbee", "christopher.mullins@kitware.com");
 
-names.add("cpinter", "Csaba Pinter");
-emails.add("cpinter@3bd1e089-480b-0410-8dfb-8563597acbee", "csaba.pinter@queensu.ca");
+names.Add("clisle", "Curt Lisle");
+emails.Add("clisle@3bd1e089-480b-0410-8dfb-8563597acbee", "clisle@knowledgevis.com");
 
-names.add("davisb", "Brad Davis");
-emails.add("davisb@3bd1e089-480b-0410-8dfb-8563597acbee", "brad.davis@kitware.com");
+names.Add("cpinter", "Csaba Pinter");
+emails.Add("cpinter@3bd1e089-480b-0410-8dfb-8563597acbee", "csaba.pinter@queensu.ca");
 
-names.add("demian", "Demian Wassermann");
-emails.add("demian@3bd1e089-480b-0410-8dfb-8563597acbee", "demian@bwh.harvard.edu");
+names.Add("davisb", "Brad Davis");
+emails.Add("davisb@3bd1e089-480b-0410-8dfb-8563597acbee", "brad.davis@kitware.com");
 
-names.add("domibel", "Dominique Belhachemi");
-emails.add("domibel@3bd1e089-480b-0410-8dfb-8563597acbee", "domibel@debian.org");
+names.Add("demian", "Demian Wassermann");
+emails.Add("demian@3bd1e089-480b-0410-8dfb-8563597acbee", "demian@bwh.harvard.edu");
 
-names.add("dpace", "Danielle Pace");
-emails.add("dpace@3bd1e089-480b-0410-8dfb-8563597acbee", "danielle.pace@kitware.com");
+names.Add("domibel", "Dominique Belhachemi");
+emails.Add("domibel@3bd1e089-480b-0410-8dfb-8563597acbee", "domibel@debian.org");
 
-names.add("fedorov", " Fedorov");
-emails.add("fedorov@3bd1e089-480b-0410-8dfb-8563597acbee", "fedorov@bwh.harvard.edu");
+names.Add("dpace", "Danielle Pace");
+emails.Add("dpace@3bd1e089-480b-0410-8dfb-8563597acbee", "danielle.pace@kitware.com");
 
-names.add("FeiZhao", "Fei Zhao");
-emails.add("FeiZhao@3bd1e089-480b-0410-8dfb-8563597acbee", "zhaof@ge.com");
+names.Add("fedorov", " Fedorov");
+emails.Add("fedorov@3bd1e089-480b-0410-8dfb-8563597acbee", "fedorov@bwh.harvard.edu");
 
-names.add("finetjul", "Julien Finet");
-emails.add("finetjul@3bd1e089-480b-0410-8dfb-8563597acbee", "julien.finet@kitware.com");
+names.Add("FeiZhao", "Fei Zhao");
+emails.Add("FeiZhao@3bd1e089-480b-0410-8dfb-8563597acbee", "zhaof@ge.com");
 
-names.add("francois_budin", "Francois Budin");
-emails.add("francois_budin@3bd1e089-480b-0410-8dfb-8563597acbee", "budin@bwh.harvard.edu"); // "fbudin@unc.edu"
+names.Add("finetjul", "Julien Finet");
+emails.Add("finetjul@3bd1e089-480b-0410-8dfb-8563597acbee", "julien.finet@kitware.com");
 
-names.add("freudling", "Andreas Freudling");
-emails.add("freudling@3bd1e089-480b-0410-8dfb-8563597acbee", "freudling@bwh.harvard.edu ");
+names.Add("francois_budin", "Francois Budin");
+emails.Add("francois_budin@3bd1e089-480b-0410-8dfb-8563597acbee", "budin@bwh.harvard.edu"); // "fbudin@unc.edu"
 
-names.add("gcasey", "Casey Goodlett");
-emails.add("gcasey@3bd1e089-480b-0410-8dfb-8563597acbee", "gcasey@cs.unc.edu");
+names.Add("freudling", "Andreas Freudling");
+emails.Add("freudling@3bd1e089-480b-0410-8dfb-8563597acbee", "freudling@bwh.harvard.edu ");
 
-names.add("haehn", "Daniel Haehn");
-emails.add("haehn@3bd1e089-480b-0410-8dfb-8563597acbee", "haehn@bwh.harvard.edu");
+names.Add("gcasey", "Casey Goodlett");
+emails.Add("gcasey@3bd1e089-480b-0410-8dfb-8563597acbee", "gcasey@cs.unc.edu");
 
-names.add("harveerar", "Harini Veeraraghavan");
-emails.add("harveerar@3bd1e089-480b-0410-8dfb-8563597acbee", "hariniraghav@gmail.com");
+names.Add("haehn", "Daniel Haehn");
+emails.Add("haehn@3bd1e089-480b-0410-8dfb-8563597acbee", "haehn@bwh.harvard.edu");
 
-names.add("hayes", "Kathryn Hayes");
-emails.add("hayes@3bd1e089-480b-0410-8dfb-8563597acbee", "hayes@bwh.harvard.edu");
+names.Add("harveerar", "Harini Veeraraghavan");
+emails.Add("harveerar@3bd1e089-480b-0410-8dfb-8563597acbee", "hariniraghav@gmail.com");
 
-names.add("hjohnson", "Hans Johnson");
-emails.add("hjohnson@3bd1e089-480b-0410-8dfb-8563597acbee", "hans-johnson@uiowa.edu");
+names.Add("hayes", "Kathryn Hayes");
+emails.Add("hayes@3bd1e089-480b-0410-8dfb-8563597acbee", "hayes@bwh.harvard.edu");
 
-names.add("hliu", "Haiying Liu");
-emails.add("hliu@3bd1e089-480b-0410-8dfb-8563597acbee", "hliu@bwh.harvard.edu");
+names.Add("hjohnson", "Hans Johnson");
+emails.Add("hjohnson@3bd1e089-480b-0410-8dfb-8563597acbee", "hans-johnson@uiowa.edu");
 
-names.add("hong", "Jaesung Hong")
-emails.add("hong@3bd1e089-480b-0410-8dfb-8563597acbee", "hong@dem.med.kyusyu-u.ac.jp");
+names.Add("hliu", "Haiying Liu");
+emails.Add("hliu@3bd1e089-480b-0410-8dfb-8563597acbee", "hliu@bwh.harvard.edu");
 
-names.add("hyang", "Hua Yang");
-emails.add("hyang@3bd1e089-480b-0410-8dfb-8563597acbee", "hua.yang@kitware.com");
+names.Add("hong", "Jaesung Hong");
+emails.Add("hong@3bd1e089-480b-0410-8dfb-8563597acbee", "hong@dem.med.kyusyu-u.ac.jp");
 
-names.add("ibanez", "Luis Ibanez");
-emails.add("ibanez@3bd1e089-480b-0410-8dfb-8563597acbee", "luis.ibanez@kitware.com");
+names.Add("hyang", "Hua Yang");
+emails.Add("hyang@3bd1e089-480b-0410-8dfb-8563597acbee", "hua.yang@kitware.com");
 
-names.add("ihnorton", "Isaiah Norton");
-emails.add("ihnorton@3bd1e089-480b-0410-8dfb-8563597acbee", "inorton@bwh.harvard.edu");
+names.Add("ibanez", "Luis Ibanez");
+emails.Add("ibanez@3bd1e089-480b-0410-8dfb-8563597acbee", "luis.ibanez@kitware.com");
 
-names.add("ilknur.kabul", "Ilknur Kabul");
-emails.add("ilknur.kabul@3bd1e089-480b-0410-8dfb-8563597acbee", "ilknur.kabul@kitware.com ");
+names.Add("ihnorton", "Isaiah Norton");
+emails.Add("ihnorton@3bd1e089-480b-0410-8dfb-8563597acbee", "inorton@bwh.harvard.edu");
 
-names.add("inorton", "Isaiah Norton");
-emails.add("inorton@3bd1e089-480b-0410-8dfb-8563597acbee", "inorton@bwh.harvard.edu");
+names.Add("ilknur.kabul", "Ilknur Kabul");
+emails.Add("ilknur.kabul@3bd1e089-480b-0410-8dfb-8563597acbee", "ilknur.kabul@kitware.com ");
 
-names.add("jamie.snape", "Jamie Snape");
-emails.add("jamie.snape@3bd1e089-480b-0410-8dfb-8563597acbee", "jamie.snape@kitware.com");
+names.Add("inorton", "Isaiah Norton");
+emails.Add("inorton@3bd1e089-480b-0410-8dfb-8563597acbee", "inorton@bwh.harvard.edu");
 
-names.add("jcfr", "Jean-Christophe Fillion-Robin");
-emails.add("jcfr@3bd1e089-480b-0410-8dfb-8563597acbee", "jchris.fillionr@kitware.com");
+names.Add("jamie.snape", "Jamie Snape");
+emails.Add("jamie.snape@3bd1e089-480b-0410-8dfb-8563597acbee", "jamie.snape@kitware.com");
 
-names.add("jcross186", "James Ross");
-emails.add("jcross186@3bd1e089-480b-0410-8dfb-8563597acbee", "jross@bwh.harvard.edu");
+names.Add("jcfr", "Jean-Christophe Fillion-Robin");
+emails.Add("jcfr@3bd1e089-480b-0410-8dfb-8563597acbee", "jchris.fillionr@kitware.com");
 
-names.add("joe.snyder", "Joe Snyder");
-emails.add("joe.snyder@3bd1e089-480b-0410-8dfb-8563597acbee", "joe.snyder@kitware.com");
+names.Add("jcross186", "James Ross");
+emails.Add("jcross186@3bd1e089-480b-0410-8dfb-8563597acbee", "jross@bwh.harvard.edu");
 
-names.add("johan.andruejol", "Johan Andruejol");
-emails.add("johan.andruejol@3bd1e089-480b-0410-8dfb-8563597acbee", "johan.andruejol@kitware.com");
+names.Add("joe.snyder", "Joe Snyder");
+emails.Add("joe.snyder@3bd1e089-480b-0410-8dfb-8563597acbee", "joe.snyder@kitware.com");
 
-names.add("jvs", "jvs@bwh.harvard.edu");
-emails.add("jvs@3bd1e089-480b-0410-8dfb-8563597acbee", " 	jvs@bwh.harvard.edu");
+names.Add("johan.andruejol", "Johan Andruejol");
+emails.Add("johan.andruejol@3bd1e089-480b-0410-8dfb-8563597acbee", "johan.andruejol@kitware.com");
 
-names.add("karthik", "Karthik Krishnan")
-emails.add("karthik@3bd1e089-480b-0410-8dfb-8563597acbee", "karthik.krishnan@kitware.com");
+names.Add("jvs", "jvs@bwh.harvard.edu");
+emails.Add("jvs@3bd1e089-480b-0410-8dfb-8563597acbee", " 	jvs@bwh.harvard.edu");
 
-names.add("kedar_p", "Kedar Patwardhan")
-emails.add("kedar_p@3bd1e089-480b-0410-8dfb-8563597acbee", "patwardh@ge.com");
+names.Add("karthik", "Karthik Krishnan");
+emails.Add("karthik@3bd1e089-480b-0410-8dfb-8563597acbee", "karthik.krishnan@kitware.com");
 
-names.add("kerstin", "Kerstin Kessel");
-emails.add("kerstin@3bd1e089-480b-0410-8dfb-8563597acbee", "kerstin@bwh.harvard.edu");
+names.Add("kedar_p", "Kedar Patwardhan");
+emails.Add("kedar_p@3bd1e089-480b-0410-8dfb-8563597acbee", "patwardh@ge.com");
 
-names.add("kquintus", "Katharina Quintus");
-emails.add("kquintus@3bd1e089-480b-0410-8dfb-8563597acbee", "kquintus@bwh.harvard.edu");
+names.Add("kerstin", "Kerstin Kessel");
+emails.Add("kerstin@3bd1e089-480b-0410-8dfb-8563597acbee", "kerstin@bwh.harvard.edu");
 
-names.add("lantiga", "Luca Antiga");
-emails.add("lantiga@3bd1e089-480b-0410-8dfb-8563597acbee", "luca.antiga@orobix.com");
+names.Add("kquintus", "Katharina Quintus");
+emails.Add("kquintus@3bd1e089-480b-0410-8dfb-8563597acbee", "kquintus@bwh.harvard.edu");
 
-names.add("lassoan", "Andras Lasso");
-emails.add("lassoan@3bd1e089-480b-0410-8dfb-8563597acbee", "lasso@queensu.ca ");
+names.Add("lantiga", "Luca Antiga");
+emails.Add("lantiga@3bd1e089-480b-0410-8dfb-8563597acbee", "luca.antiga@orobix.com");
 
-names.add("lauren", "Lauren O'Donnell");
-emails.add("lauren@3bd1e089-480b-0410-8dfb-8563597acbee", "odonnell@bwh.harvard.edu");
+names.Add("lassoan", "Andras Lasso");
+emails.Add("lassoan@3bd1e089-480b-0410-8dfb-8563597acbee", "lasso@queensu.ca ");
 
-names.add("lorensen", "Bill Lorensen");
-emails.add("lorensen@3bd1e089-480b-0410-8dfb-8563597acbee", "bill.lorensen@gmail.com");
+names.Add("lauren", "Lauren O'Donnell");
+emails.Add("lauren@3bd1e089-480b-0410-8dfb-8563597acbee", "odonnell@bwh.harvard.edu");
 
-names.add("maddah", "Mahnaz Maddah");
-emails.add("maddah@3bd1e089-480b-0410-8dfb-8563597acbee", "mmaddah@alum.mit.edu");
+names.Add("lorensen", "Bill Lorensen");
+emails.Add("lorensen@3bd1e089-480b-0410-8dfb-8563597acbee", "bill.lorensen@gmail.com");
 
-names.add("malaterre", "Mathieu Malaterre");
-emails.add("malaterre@3bd1e089-480b-0410-8dfb-8563597acbee", "mathieu.malaterre@gmail.com");
+names.Add("maddah", "Mahnaz Maddah");
+emails.Add("maddah@3bd1e089-480b-0410-8dfb-8563597acbee", "mmaddah@alum.mit.edu");
 
-names.add("matthew.bowman", "Matthew Bowman");
-emails.add("matthew.bowman@3bd1e089-480b-0410-8dfb-8563597acbee", "matthew.bowman@kitware.com");
+names.Add("malaterre", "Mathieu Malaterre");
+emails.Add("malaterre@3bd1e089-480b-0410-8dfb-8563597acbee", "mathieu.malaterre@gmail.com");
 
-names.add("mccormic", "Matt McCormick");
-emails.add("mccormic@3bd1e089-480b-0410-8dfb-8563597acbee", "matt.mccormick@kitware.com");
+names.Add("matthew.bowman", "Matthew Bowman");
+emails.Add("matthew.bowman@3bd1e089-480b-0410-8dfb-8563597acbee", "matthew.bowman@kitware.com");
 
-names.add("Michael.jeulinl", "Michael Jeulinl");
-emails.add("Michael.jeulinl@3bd1e089-480b-0410-8dfb-8563597acbee", "michael.jeulinl@kitware.com");
+names.Add("mccormic", "Matt McCormick");
+emails.Add("mccormic@3bd1e089-480b-0410-8dfb-8563597acbee", "matt.mccormick@kitware.com");
 
-names.add("millerjv", "Jim Miller");
-emails.add("millerjv@3bd1e089-480b-0410-8dfb-8563597acbee", "millerjv@ge.com");
+names.Add("Michael.jeulinl", "Michael Jeulinl");
+emails.Add("Michael.jeulinl@3bd1e089-480b-0410-8dfb-8563597acbee", "michael.jeulinl@kitware.com");
 
-names.add("mscully", "Mark Scully");
-emails.add("mscully@3bd1e089-480b-0410-8dfb-8563597acbee", "mark-scully@uiowa.edu");
+names.Add("mike", "Michael Keilhack");
+emails.Add("mike@3bd1e089-480b-0410-8dfb-8563597acbee", "keilhack@bwh.harvard.edu");
 
-names.add("msmolens", "Max Smolens");
-emails.add("msmolens@3bd1e089-480b-0410-8dfb-8563597acbee", "max.smolens@kitware.com");
+names.Add("millerjv", "Jim Miller");
+emails.Add("millerjv@3bd1e089-480b-0410-8dfb-8563597acbee", "millerjv@ge.com");
 
-names.add("mwoehlke", "Matthew Woehlke");
-emails.add("mwoehlke@3bd1e089-480b-0410-8dfb-8563597acbee", "matthew.woehlke@kitware.com");
+names.Add("mscully", "Mark Scully");
+emails.Add("mscully@3bd1e089-480b-0410-8dfb-8563597acbee", "mark-scully@uiowa.edu");
 
-names.add("naucoin", "Nicole Aucoin");
-emails.add("naucoin@3bd1e089-480b-0410-8dfb-8563597acbee", "nicole@bwh.harvard.edu");
+names.Add("msmolens", "Max Smolens");
+emails.Add("msmolens@3bd1e089-480b-0410-8dfb-8563597acbee", "max.smolens@kitware.com");
 
-names.add("nicky", "Nicholas Herlambang");
-emails.add("nicky@3bd1e089-480b-0410-8dfb-8563597acbee", "nicholas@atre.t.u-tokyo.ac.jp");
+names.Add("mwoehlke", "Matthew Woehlke");
+emails.Add("mwoehlke@3bd1e089-480b-0410-8dfb-8563597acbee", "matthew.woehlke@kitware.com");
 
-names.add("nobyhata", "Nobuhiko Hata");
-emails.add("nobyhata@3bd1e089-480b-0410-8dfb-8563597acbee", "hata@bwh.harvard.edu");
+names.Add("naucoin", "Nicole Aucoin");
+emails.Add("naucoin@3bd1e089-480b-0410-8dfb-8563597acbee", "nicole@bwh.harvard.edu");
 
-names.add("padfield", "Dirk Padfield");
-emails.add("padfield@3bd1e089-480b-0410-8dfb-8563597acbee", "padfield@research.ge.com");
+names.Add("nicky", "Nicholas Herlambang");
+emails.Add("nicky@3bd1e089-480b-0410-8dfb-8563597acbee", "nicholas@atre.t.u-tokyo.ac.jp");
 
-names.add("partyd", "Dave Partyka");
-emails.add("partyd@3bd1e089-480b-0410-8dfb-8563597acbee", "dave.partyka@kitware.com");
+names.Add("nobyhata", "Nobuhiko Hata");
+emails.Add("nobyhata@3bd1e089-480b-0410-8dfb-8563597acbee", "hata@bwh.harvard.edu");
 
-names.add("pieper", "Steve Pieper");
-emails.add("pieper@3bd1e089-480b-0410-8dfb-8563597acbee", "pieper@bwh.harvard.edu");
+names.Add("padfield", "Dirk Padfield");
+emails.Add("padfield@3bd1e089-480b-0410-8dfb-8563597acbee", "padfield@research.ge.com");
 
-names.add("pinter", "Csaba Pinter");
-emails.add("pinter@3bd1e089-480b-0410-8dfb-8563597acbee", "csaba.pinter@queensu.ca");
+names.Add("partyd", "Dave Partyka");
+emails.Add("partyd@3bd1e089-480b-0410-8dfb-8563597acbee", "dave.partyka@kitware.com");
 
-names.add("pkarasev3", "Peter Karasev")
-emails.add("pkarasev3@3bd1e089-480b-0410-8dfb-8563597acbee", "pkarasev@gatech.edu");
+names.Add("pieper", "Steve Pieper");
+emails.Add("pieper@3bd1e089-480b-0410-8dfb-8563597acbee", "pieper@bwh.harvard.edu");
 
-names.add("pkarasev", "Peter Karasev")
-emails.add("pkarasev@3bd1e089-480b-0410-8dfb-8563597acbee", "pkarasev@gatech.edu");
+names.Add("pinter", "Csaba Pinter");
+emails.Add("pinter@3bd1e089-480b-0410-8dfb-8563597acbee", "csaba.pinter@queensu.ca");
 
-names.add("pohl", "Kilian Pohl");
-emails.add("pohl@3bd1e089-480b-0410-8dfb-8563597acbee", "pohl.kilian@gmail.com");
+names.Add("pkarasev3", "Peter Karasev");
+emails.Add("pkarasev3@3bd1e089-480b-0410-8dfb-8563597acbee", "pkarasev@gatech.edu");
 
-names.add("rjosest", "Raul San Jose");
-emails.add("rjosest@3bd1e089-480b-0410-8dfb-8563597acbee", "rjosest@bwh.harvard.edu");
+names.Add("pkarasev", "Peter Karasev");
+emails.Add("pkarasev@3bd1e089-480b-0410-8dfb-8563597acbee", "pkarasev@gatech.edu");
 
-names.add("rsierra", "Raimundo Sierra");
-emails.add("rsierra@3bd1e089-480b-0410-8dfb-8563597acbee", "rsierra@bwh.harvard.edu");
+names.Add("pohl", "Kilian Pohl");
+emails.Add("pohl@3bd1e089-480b-0410-8dfb-8563597acbee", "pohl.kilian@gmail.com");
 
-names.add("sam.horvath", "Sam Horvath");
-emails.add("sam.horvath@3bd1e089-480b-0410-8dfb-8563597acbee", "sam.horvath@kitware.com");
+names.Add("rjosest", "Raul San Jose");
+emails.Add("rjosest@3bd1e089-480b-0410-8dfb-8563597acbee", "rjosest@bwh.harvard.edu");
 
-names.add("sankhesh", "Sankhesh Jhaveri");
-emails.add("sankhesh@3bd1e089-480b-0410-8dfb-8563597acbee", "sankhesh.jhaveri@kitware.com");
+names.Add("rsierra", "Raimundo Sierra");
+emails.Add("rsierra@3bd1e089-480b-0410-8dfb-8563597acbee", "rsierra@bwh.harvard.edu");
 
-names.add("sylvain", "Sylvain Bouix");
-emails.add("sylvain@3bd1e089-480b-0410-8dfb-8563597acbee", "sylvain@bwh.harvard.edu");
+names.Add("sam.horvath", "Sam Horvath");
+emails.Add("sam.horvath@3bd1e089-480b-0410-8dfb-8563597acbee", "sam.horvath@kitware.com");
 
-names.add("taox", "Xiaodong Tao");
-emails.add("taox@3bd1e089-480b-0410-8dfb-8563597acbee", "taox@research.ge.com");
+names.Add("samset", "Eigil Samset");
+emails.Add("samset@3bd1e089-480b-0410-8dfb-8563597acbee", "eigil.samset@ge.com");
 
-names.add("tgl", "Terry Lorber");
-emails.add("tgl@3bd1e089-480b-0410-8dfb-8563597acbee", "tgl@rideside.net");
+names.Add("sankhesh", "Sankhesh Jhaveri");
+emails.Add("sankhesh@3bd1e089-480b-0410-8dfb-8563597acbee", "sankhesh.jhaveri@kitware.com");
 
-names.add("tokuda", "Junichi Tokuda");
-emails.add("tokuda@3bd1e089-480b-0410-8dfb-8563597acbee", "tokuda@bwh.harvard.edu");
+names.Add("sylvain", "Sylvain Bouix");
+emails.Add("sylvain@3bd1e089-480b-0410-8dfb-8563597acbee", "sylvain@bwh.harvard.edu");
 
-names.add("tringo", "Tri Ngo");
-emails.add("tringo@3bd1e089-480b-0410-8dfb-8563597acbee", "ngotm@mit.edu"); // "tringo@gmail.com"
+names.Add("taox", "Xiaodong Tao");
+emails.Add("taox@3bd1e089-480b-0410-8dfb-8563597acbee", "taox@research.ge.com");
 
-names.add("ungi", "Tamas Ungi");
-emails.add("ungi@3bd1e089-480b-0410-8dfb-8563597acbee", "ungi@queensu.ca");
+names.Add("taylor", "Taylor Braun-Jones");
+emails.Add("taylor@3bd1e089-480b-0410-8dfb-8563597acbee", "taylor@braun-jones.org");
 
-names.add("vmagnotta", "Vincent Magnotta");
-emails.add("vmagnotta@3bd1e089-480b-0410-8dfb-8563597acbee", "vincent-magnotta@uiowa.edu");
+names.Add("tgl", "Terry Lorber");
+emails.Add("tgl@3bd1e089-480b-0410-8dfb-8563597acbee", "tgl@rideside.net");
 
-names.add("vrnova", "Yanling Liu")
-emails.add("vrnova@3bd1e089-480b-0410-8dfb-8563597acbee", "liuy5@mail.nih.gov");
+names.Add("tokuda", "Junichi Tokuda");
+emails.Add("tokuda@3bd1e089-480b-0410-8dfb-8563597acbee", "tokuda@bwh.harvard.edu");
 
-names.add("wjp@bwh.harvard.edu", "Wendy Plesniak");
-emails.add("wjp@bwh.harvard.edu@3bd1e089-480b-0410-8dfb-8563597acbee", "wjp@bwh.harvard.edu");
+names.Add("tringo", "Tri Ngo");
+emails.Add("tringo@3bd1e089-480b-0410-8dfb-8563597acbee", "ngotm@mit.edu"); // "tringo@gmail.com"
 
-names.add("ygao", "Yi Gao")
-emails.add("ygao@3bd1e089-480b-0410-8dfb-8563597acbee", "yi.gao@gatech.edu");
+names.Add("ungi", "Tamas Ungi");
+emails.Add("ungi@3bd1e089-480b-0410-8dfb-8563597acbee", "ungi@queensu.ca");
 
-names.add("Yong", "Yong Zhang");
-emails.add("Yong@3bd1e089-480b-0410-8dfb-8563597acbee", "yzhang@bwh.harvard.edu");
+names.Add("vmagnotta", "Vincent Magnotta");
+emails.Add("vmagnotta@3bd1e089-480b-0410-8dfb-8563597acbee", "vincent-magnotta@uiowa.edu");
 
-names.add("yumin", "Yumin Yuan");
-emails.add("yumin@3bd1e089-480b-0410-8dfb-8563597acbee", "yumin.yuan@kitware.com");
+names.Add("vrnova", "Yanling Liu");
+emails.Add("vrnova@3bd1e089-480b-0410-8dfb-8563597acbee", "liuy5@mail.nih.gov");
 
-names.add("zach.mullen", "Zach Mullen");
-emails.add("zach.mullen@3bd1e089-480b-0410-8dfb-8563597acbee", "zach.mullen@kitware.com");
+names.Add("wjp@bwh.harvard.edu", "Wendy Plesniak");
+emails.Add("wjp@bwh.harvard.edu@3bd1e089-480b-0410-8dfb-8563597acbee", "wjp@bwh.harvard.edu");
 
-names.add("zack.galbreath", "Zack Galbreath");
-emails.add("zack.galbreath@3bd1e089-480b-0410-8dfb-8563597acbee", "zack.galbreath@kitware.com");
+names.Add("ygao", "Yi Gao");
+emails.Add("ygao@3bd1e089-480b-0410-8dfb-8563597acbee", "yi.gao@gatech.edu");
+
+names.Add("Yong", "Yong Zhang");
+emails.Add("Yong@3bd1e089-480b-0410-8dfb-8563597acbee", "yzhang@bwh.harvard.edu");
+
+names.Add("yumin", "Yumin Yuan");
+emails.Add("yumin@3bd1e089-480b-0410-8dfb-8563597acbee", "yumin.yuan@kitware.com");
+
+names.Add("zach.mullen", "Zach Mullen");
+emails.Add("zach.mullen@3bd1e089-480b-0410-8dfb-8563597acbee", "zach.mullen@kitware.com");
+
+names.Add("zack.galbreath", "Zack Galbreath");
+emails.Add("zack.galbreath@3bd1e089-480b-0410-8dfb-8563597acbee", "zack.galbreath@kitware.com");
 
 // Wrong email
 
-emails.add("https://github.com/kmader", "kmader@users.noreply.github.com");
-emails.add("agirault@users.noreply.github.com", "alexis.girault@kitware.com");
-emails.add("lasso@cs.queensu.ca", "lasso@queensu.ca");
-emails.add("christianherz1985@googlemail.com", "christianherz1985@gmail.com");
+emails.Add("https://github.com/kmader", "kmader@users.noreply.github.com");
+emails.Add("agirault@users.noreply.github.com", "alexis.girault@kitware.com");
+emails.Add("lasso@cs.queensu.ca", "lasso@queensu.ca");
+emails.Add("christianherz1985@googlemail.com", "christianherz1985@gmail.com");
 
-names.add("SM Rolfe", "Sara Rolfe");
-names.add("lopezmt", "Mateo Lopez");
-names.add("spujol", "Sonia Pujol");
-names.add("kevin Wang", "Kevin Wang");
-names.add("Julien", "Julien Finet");
-names.add("Johan Andruejohl", "Johan Andruejol");
-names.add("Fernando, "Fernando Perez-Garcia");
-names.add("Fernando Perez Garcia, "Fernando Perez-Garcia");
-names.add("Davide", "Davide Punzo");
-names.add("Dzenan Zukic", "Dženan Zukić");
-names.add("fbudin69500", "Francois Budin");
+names.Add("SM Rolfe", "Sara Rolfe");
+names.Add("lopezmt", "Mateo Lopez");
+names.Add("spujol", "Sonia Pujol");
+names.Add("kevin Wang", "Kevin Wang");
+names.Add("Julien", "Julien Finet");
+names.Add("Johan Andruejohl", "Johan Andruejol");
+names.Add("Fernando", "Fernando Perez-Garcia");
+names.Add("Fernando Perez Garcia", "Fernando Perez-Garcia");
+names.Add("Davide", "Davide Punzo");
+names.Add("Dzenan Zukic", "Dženan Zukić");
+names.Add("fbudin69500", "Francois Budin");
+names.Add("zhangfanmark", "Fan Zhang");
+names.Add("jamesobutler", "James Butler");
+names.Add("Jean-Baptiste Vimort", "Jean-Baptiste VIMORT");
+names.Add("Isaiah", "Isaiah Norton");
+names.Add("Lauren J. O'Donnell", "Lauren O'Donnell");
+names.Add("jonieva", "Jorge Onieva");
+names.Add("jvs@bwh.harvard.edu", "Julien von Siebentha");
+names.Add("AndrewBeers", "Andrew Beers");
+
+// leochan2009 -> Longquan Chen ?
 
 
 // ----------------------------------------------------------------------------
-// Update author and commiter
+// Update author and committer
 // ----------------------------------------------------------------------------
 
 if (emails.ContainsKey(commit.AuthorEmail))
 {
-  commit.AuthorEmail = emails[commit.AuthorEmail];
+    commit.AuthorEmail = emails[commit.AuthorEmail];
 }
 
 if (emails.ContainsKey(commit.CommitterEmail))
 {
-  commit.CommitterEmail = emails[commit.CommitterEmail];
+    commit.CommitterEmail = emails[commit.CommitterEmail];
 }
 
 if (names.ContainsKey(commit.AuthorName))
 {
-  commit.AuthorEmail = names[commit.AuthorName];
+    commit.AuthorName = names[commit.AuthorName];
 }
 
 if (names.ContainsKey(commit.CommitterName))
 {
-  commit.CommitterName = names[commit.CommitterEmail];
+    commit.CommitterName = names[commit.CommitterName];
 }
 
+// ----------------------------------------------------------------------------
+// Update "Co-authored-by: "
+// ----------------------------------------------------------------------------
+var lines = commit.Message.Split(Environment.NewLine.ToCharArray()).ToList();
+for(int idx = lines.Count - 1; idx >= 0; idx--)
+{
+    if (lines[idx].StartsWith("Co-authored-by: "))
+    {
+        string author = lines[idx].Substring("Co-authored-by: ".Length);
+        string name = author.Substring(0, author.IndexOf("<") - 1);
+        string email = author.Substring(author.IndexOf("<") + 1, author.IndexOf(">") - author.IndexOf("<") - 1);
+        if (names.ContainsKey(name))
+        {
+            name = names[name];
+        }
+        if (emails.ContainsKey(email))
+        {
+            email = emails[email];
+        }
+        lines[idx] = "Co-authored-by: " + name + " <" + email + ">";
+    }
+}
+commit.Message = string.Join(Environment.NewLine, lines);

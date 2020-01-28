@@ -91,7 +91,7 @@ git checkout -b master-48-no-data origin/master-48
   done
 ```
 
-(4) Consolidate git trailers, set author name and email based on "From:", update author and commiter
+(4a) Consolidate git trailers, set author name and email based on "From:"
 
 ```
   cd ${SOURCE_DIR}
@@ -107,6 +107,24 @@ git checkout -b master-48-no-data origin/master-48
     git-rocket-filter --branch ${BRANCH}-trailers-consolidated  --commit-filter-script ./commit-filter-script-trailers-consolidated
   done
 ```
+
+(4b) Update authorship
+
+```
+  cd ${SOURCE_DIR}
+
+  for REFERENCE_BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
+    BRANCH=${REFERENCE_BRANCH}-no-data-trailers-consolidated
+    echo ""
+    git checkout ${BRANCH}
+
+    git branch -D ${BRANCH}-fix-authorship > /dev/null 2>&1 || true
+
+    cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship .
+    git-rocket-filter --branch ${BRANCH}-fix-authorship  --commit-filter-script ./commit-filter-script-fix-authorship
+  done
+```
+
 
 
 (5) graft release branches onto master
@@ -125,9 +143,9 @@ git checkout -b master-48-no-data origin/master-48
 
   cd ${SOURCE_DIR}
 
-  BRANCH_SUFFIX=-trailers-consolidated
+  BRANCH=master-48
 
-  BRANCH=master-411
+  BRANCH_SUFFIX=-trailers-consolidated-fix-authorship
   BRANCH=${BRANCH}-no-data${BRANCH_SUFFIX}
 
   # Extract SVN revision associated with branching point

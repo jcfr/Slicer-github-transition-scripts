@@ -42,7 +42,7 @@ for(int idx = lines.Count - 1; idx >= 0; idx--)
     if (lines[idx].StartsWith("From:"))
     {
         from = lines[idx].Substring(6);
-        // lines.RemoveAt(idx);
+        lines.RemoveAt(idx);
         break;
     }
 }
