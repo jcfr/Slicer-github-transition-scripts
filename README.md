@@ -51,6 +51,9 @@ git checkout -b master-48-no-data origin/master-48
 
     cat /tmp/objects | cut -c22- | ack -iv "\.(cxx|h|json|stl|xml|tcl|py|csv|icns|png|ui|txt|in|hxx|c|txx|uu|svg|cmake|md5|rst|am|qrc|i|ini|dox|ts|log|sh|s3ext|s4ext|mat|acsv|pl|cpp|ico|mrml|patch|mcsv|gitignore|svnignore|cvsignore|css|html|directory|dic|tfm|dis|gitattributes|m|cc|m4|pkc|diff|sln|old|java|orig|ac|vcproj|ctbl|out|gif|bat|yml|cu|swp|kit|h5|curv|MF|NoDartCoverage|levels|inc\.[a-z0-9]+|supp|awk|[0-9]|s4ext-disabled|md|crt|fcsv|clp|vtp|vsprops|xmi|ctest|cfg|pipe|stop|mrml_remote|tcl_orig|ncb|suo)$" | ack -vi "(\/README|Makefile|hints|authors|news|version|pre-commit|stamp-h1|bootstrap|copying|install|notes|spec|commit-msg|doxyfile|missing|depcomp|o2|out|tmpl|vpj|Program_description|jython|CommandLineApplicationNew|getkits|randomFail|loopy|wccpp.nt|mvcpp.nt|testScript|testDemonsScript|QCleanlooksStyle|cmd2Circles|LevelSetSegmenter|UML/Annotation)^" | sort | uniq > /tmp/candidates
 
+    # Consider handpicked files
+    cat ${TRANSITION_SCRIPTS_DIR}/candidates-handpicked >> /tmp/candidates
+
     # Then exclude file currently in master HEAD
     # This is done only for master because the remaining files are considered small enough and it was not worth
     # setting up a mechanism to download them using ExternalData or similar approach.
