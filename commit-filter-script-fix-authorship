@@ -34,7 +34,7 @@ emails.Add("barre@3bd1e089-480b-0410-8dfb-8563597acbee", "sebastien.barre@kitwar
 names.Add("benjamin.long", "Benjamin Long");
 emails.Add("benjamin.long@3bd1e089-480b-0410-8dfb-8563597acbee", "benjamin.long@kitware.com");
 
-names.Add("bess", Ying-Lin Lee");
+names.Add("bess", "Ying-Lin Lee");
 emails.Add("bess@3bd1e089-480b-0410-8dfb-8563597acbee", "bess.lee@ge.com");
 
 names.Add("blezek", "Daniel Blezek");
