@@ -177,30 +177,30 @@ git checkout -b master-48-no-data origin/master-48
   cd ${SOURCE_DIR}
 
   # for consistency create the "-complete-history" associated with "master"
-  branch=master
-  git checkout -b ${branch}-no-data${BRANCH_SUFFIX}-complete-history ${branch}-no-data${BRANCH_SUFFIX}
+  BRANCH=master
+  git checkout -b ${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history ${BRANCH}-no-data${BRANCH_SUFFIX}
 
   REMOTE=slicer-git
   git remote add ${REMOTE} git@github.com:jcfr/Slicer-Git.git
-  for branch in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
-    src_branch=${branch}-no-data${BRANCH_SUFFIX}-complete-history
+  for BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
+    src_branch=${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history
 
-    if [[ ${branch} == "master-410" ]]; then
+    if [[ ${BRANCH} == "master-410" ]]; then
       dst_branch="master-4.10"
-    elif [[ ${branch} == "master-411" ]]; then
+    elif [[ ${BRANCH} == "master-411" ]]; then
       dst_branch="master-4.1.1"
-    elif [[ ${branch} == "master-42" ]]; then
+    elif [[ ${BRANCH} == "master-42" ]]; then
       dst_branch="master-4.2"
-    elif [[ ${branch} == "master-43" ]]; then
+    elif [[ ${BRANCH} == "master-43" ]]; then
       dst_branch="master-4.3"
-    elif [[ ${branch} == "master-431" ]]; then
+    elif [[ ${BRANCH} == "master-431" ]]; then
       dst_branch="master-4.3.1"
-    elif [[ ${branch} == "master-46" ]]; then
+    elif [[ ${BRANCH} == "master-46" ]]; then
       dst_branch="master-4.6"
-    elif [[ ${branch} == "master-48" ]]; then
+    elif [[ ${BRANCH} == "master-48" ]]; then
       dst_branch="master-4.8"
     else
-      dst_branch=${branch}
+      dst_branch=${BRANCH}
     fi
 
     # echo "git push ${REMOTE} ${src_branch}:${dst_branch}"
