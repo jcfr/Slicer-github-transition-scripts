@@ -74,7 +74,7 @@ git checkout -b master-48-no-data origin/master-48
 
   for REFERENCE_BRANCH in master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
 
-    # BRANCH=master
+    # REFERENCE_BRANCH=master
 
     BRANCH=${REFERENCE_BRANCH}-no-data
 
