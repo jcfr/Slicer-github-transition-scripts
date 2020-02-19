@@ -74,7 +74,7 @@ git checkout -b master-48-no-data origin/master-48
 
   for REFERENCE_BRANCH in master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
 
-    # REFERENCE_BRANCH=master
+    #REFERENCE_BRANCH=master
 
     BRANCH=${REFERENCE_BRANCH}-no-data
 
@@ -143,7 +143,7 @@ git checkout -b master-48-no-data origin/master-48
 
   cd ${SOURCE_DIR}
 
-  BRANCH=master-48
+  BRANCH=master-42
 
   BRANCH_SUFFIX=-trailers-consolidated-fix-authorship
   BRANCH=${BRANCH}-no-data${BRANCH_SUFFIX}
@@ -156,13 +156,6 @@ git checkout -b master-48-no-data origin/master-48
   BRANCHING_SHA=$(git log --grep="@${BRANCHING_SVN_REVISION}" --pretty="%H" master-no-data${BRANCH_SUFFIX})
   echo "BRANCHING_SHA: ${BRANCHING_SHA}"
 
-  # If commit contains "Begin post-", get the previous
-  #if [[ $(git log -n1 ${BRANCHING_SHA} --pretty="%s" | ack "Begin post-") != "" ]]; then
-  #  echo "${BRANCHING_SHA} contains 'Begin post-' - getting previous commit"
-  #  BRANCHING_SHA=$(git rev-parse ${BRANCHING_SHA}^)
-  #fi
-  #echo "BRANCHING_SHA: ${BRANCHING_SHA}"
-
   # Branch history to rebase
   START=$(git rev-list ${BRANCH} | tail -1)
   END=$(git rev-list ${BRANCH} -n1)
@@ -172,7 +165,7 @@ git checkout -b master-48-no-data origin/master-48
   git checkout -b ${BRANCH}-complete-history
   
 
-(6) Experiment by publishing on jcfr/Slicer-Git
+(6) Publish on jcfr/Slicer-Git
 
   cd ${SOURCE_DIR}
 
@@ -180,9 +173,11 @@ git checkout -b master-48-no-data origin/master-48
   BRANCH=master
   git checkout -b ${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history ${BRANCH}-no-data${BRANCH_SUFFIX}
 
+  # master-431
+
   REMOTE=slicer-git
   git remote add ${REMOTE} git@github.com:jcfr/Slicer-Git.git
-  for BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
+  for BRANCH in master master-410 master-411 master-42 master-43 master-46 master-48; do
     src_branch=${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history
 
     if [[ ${BRANCH} == "master-410" ]]; then
@@ -207,3 +202,123 @@ git checkout -b master-48-no-data origin/master-48
     git push ${REMOTE} ${src_branch}:${dst_branch}
   done
 ```
+
+(7) Create tags
+
+# (a) Run this in original Slicer checkout
+for tag in \
+  v4.0.0 \
+  v4.0.1 \
+  v4.1.0 \
+  v4.1.1 \
+  v4.10.0 \
+  v4.10.1 \
+  v4.10.2 \
+  v4.2.0 \
+  v4.2.1 \
+  v4.2.2 \
+  v4.3.0 \
+  v4.3.1 \
+  v4.4.0 \
+  v4.5.0-1 \
+  v4.6.0 \
+  v4.6.2 \
+  v4.8.0 \
+  v4.8.1; do
+  svn_revision=$(git show ${tag} | ack git-svn-id | sed -r "s/.+@([0-9]+).+/\1/")
+  echo "${tag}:${svn_revision}"
+done > /tmp/slicer-tag-and-svn-revision
+
+# (b) Manually edit /tmp/slicer-tag-and-svn-revision to re-order tags
+#     v4.10.x should be listed after v4.8.x
+#
+#     Manually add v4.2.2-1:21513
+
+# (c) Run this in updated Slicer checkout (e.g jcfr/Slicer-Git)
+
+for tag_and_svn_revision in $(cat /tmp/slicer-tag-and-svn-revision); do
+  tag=$(echo ${tag_and_svn_revision} | cut -d: -f1)
+  version=$(echo ${tag} | sed -r "s/^v//")
+  svn_revision=$(echo ${tag_and_svn_revision} | cut -d: -f2)
+  tag_hash=$(git log --all --grep="@${svn_revision} " --format=format:%H)
+  echo "${version}:${tag_hash}"
+  git tag -s -m "ENH: Slicer ${version}" v${version} ${tag_hash}
+  git push origin v${version}
+done
+
+
+for tag_and_svn_revision in $(cat /tmp/slicer-tag-and-svn-revision); do
+  tag=$(echo ${tag_and_svn_revision} | cut -d: -f1)
+  #git push origin :${tag}
+  git  tag --delete ${tag}
+done
+
+
+(8) Grab latest changes from master and graft them onto converted master branch (master-no-data-trailers-consolidated-fix-authorship-complete-history)
+
+BRANCH=master-no-data-trailers-consolidated-fix-authorship-complete-history
+
+# backup
+git checkout ${BRANCH}
+git checkout -b ${BRANCH}-orig
+
+# cleanup
+git branch -D ${BRANCH}-1 ${BRANCH}-2
+
+# origin corresponds to git@github.com:Slicer/Slicer.git
+git fetch origin
+
+#
+git rebase --onto ${BRANCH} e68a1a22ed 85e4859909 --committer-date-is-author-date
+git branch -D ${BRANCH} && git checkout -b ${BRANCH}
+
+# apply filtering
+git-rocket-filter --branch ${BRANCH}-1  --commit-filter-script ./commit-filter-script-trailers-consolidated
+
+git checkout ${BRANCH}-1
+git-rocket-filter --branch ${BRANCH}-2  --commit-filter-script ./commit-filter-script-fix-authorship
+
+git checkout ${BRANCH}
+git reset --hard ${BRANCH}-orig
+
+# identify first and last commit
+git lg $BRANCH-2
+
+# rebase updated commits onto current "master" branch
+git rebase --onto ${BRANCH} fbb980481a c2a42c1bcd --committer-date-is-author-date
+git branch -D ${BRANCH} && git checkout -b ${BRANCH}
+
+REMOTE=slicer-git
+src_branch=${BRANCH}
+dst_branch=master
+git push ${REMOTE} ${src_branch}:${dst_branch}
+
+
+(9) Fix commmitter email/name following rebase
+
+  BRANCH=test
+  cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
+  git-rocket-filter c1850fd482..0255dacd5d --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
+
+  MASTER_BRANCH=master-no-data-trailers-consolidated-fix-authorship-complete-history
+
+  REFERENCE_BRANCH=master-48
+  BRANCH=${REFERENCE_BRANCH}-no-data-trailers-consolidated-fix-authorship-complete-history
+  BEGIN=$(git merge-base ${MASTER_BRANCH} ${BRANCH})
+  END=${BRANCH}
+  cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
+  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
+  git checkout ${BRANCH}-committer-fixed
+  git branch -D ${BRANCH}
+  git branch -M ${BRANCH}
+
+  REFERENCE_BRANCH=master-410
+  BRANCH=${REFERENCE_BRANCH}-no-data-trailers-consolidated-fix-authorship-complete-history
+  BEGIN=$(git merge-base ${MASTER_BRANCH} ${BRANCH})
+  END=${BRANCH}
+  cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
+  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
+  git checkout ${BRANCH}-committer-fixed
+  git branch -D ${BRANCH}
+  git branch -M ${BRANCH}
+

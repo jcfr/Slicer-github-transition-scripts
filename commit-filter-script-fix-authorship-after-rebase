@@ -1,0 +1,195 @@
+
+var lines = commit.Message.Split(Environment.NewLine.ToCharArray()).ToList();
+
+int svnid_index = lines.Count - 2;
+//Console.WriteLine("[" + lines[svnid_index] + "]\n");
+
+//
+// Fixup committer author and email for last commits manually rebased.
+// It applies to the following branches:
+//
+// * master: Since re-running the script removing data takes a long time. Commit added after the initial
+//           run of the script are manually rebased. See step (8) in README.md
+//
+// * master-xyz: Restore relevant authorship
+
+
+//
+// master
+//
+if (lines[svnid_index].Contains("28752")
+  || lines[svnid_index].Contains("28753")
+  || lines[svnid_index].Contains("28754")
+  || lines[svnid_index].Contains("28755")
+  || lines[svnid_index].Contains("28756")
+  || lines[svnid_index].Contains("28757")
+  || lines[svnid_index].Contains("28758")
+  || lines[svnid_index].Contains("28759")
+  || lines[svnid_index].Contains("28760")
+  || lines[svnid_index].Contains("28762")
+  || lines[svnid_index].Contains("28763")
+  || lines[svnid_index].Contains("28764")
+  || lines[svnid_index].Contains("28765")
+  || lines[svnid_index].Contains("28767")
+  || lines[svnid_index].Contains("28768")
+  || lines[svnid_index].Contains("28770")
+  )
+{
+  commit.CommitterName = "Andras Lasso";
+  commit.CommitterEmail = "lasso@queensu.ca";
+}
+else if (lines[svnid_index].Contains("28761")
+  || lines[svnid_index].Contains("28766")
+  || lines[svnid_index].Contains("28769")
+  )
+{
+  commit.CommitterName = "Steve Pieper";
+  commit.CommitterEmail = "pieper@isomics.com";
+}
+else if (lines[svnid_index].Contains("28771"))
+{
+  commit.CommitterName = "Sam Horvath";
+  commit.CommitterEmail = "sam.horvath@kitware.com";
+}
+else if (lines[svnid_index].Contains("28772"))
+{
+  commit.CommitterName = "Jean-Christophe Fillion-Robin";
+  commit.CommitterEmail = "jchris.fillionr@kitware.com";
+}
+else if (lines[svnid_index].Contains("28773"))
+{
+  commit.CommitterName = "Csaba Pinter";
+  commit.CommitterEmail = "csaba.pinter@queensu.ca";
+}
+
+//
+// master-4.8
+//
+
+if (lines[svnid_index].Contains("26811")
+  || lines[svnid_index].Contains("26778")
+  || lines[svnid_index].Contains("26777")
+  || lines[svnid_index].Contains("26771")
+  || lines[svnid_index].Contains("26765")
+  || lines[svnid_index].Contains("26764")
+  || lines[svnid_index].Contains("26763")
+  || lines[svnid_index].Contains("26762")
+  || lines[svnid_index].Contains("26757")
+  || lines[svnid_index].Contains("26747")
+  || lines[svnid_index].Contains("26746")
+  || lines[svnid_index].Contains("26738")
+  || lines[svnid_index].Contains("26724")
+  || lines[svnid_index].Contains("26723")
+  )
+{
+  commit.AuthorName = "Andras Lasso";
+  commit.AuthorEmail = "lasso@queensu.ca";
+}
+else if (lines[svnid_index].Contains("26786")
+  || lines[svnid_index].Contains("26783")
+  )
+{
+  commit.AuthorName = "Isaiah Norton";
+  commit.AuthorEmail = "inorton@bwh.harvard.edu";
+}
+else if (lines[svnid_index].Contains("26770")
+  || lines[svnid_index].Contains("26753")
+  || lines[svnid_index].Contains("26745")
+  || lines[svnid_index].Contains("26741")
+  || lines[svnid_index].Contains("26739")
+  || lines[svnid_index].Contains("26730")
+  )
+{
+  commit.AuthorName = "Csaba Pinter";
+  commit.AuthorEmail = "csaba.pinter@queensu.ca";
+}
+
+//
+// master-4.10
+//
+
+if (lines[svnid_index].Contains("28254")
+  || lines[svnid_index].Contains("28253")
+  || lines[svnid_index].Contains("28252")
+  || lines[svnid_index].Contains("28251")
+  || lines[svnid_index].Contains("28250")
+  || lines[svnid_index].Contains("28249")
+  || lines[svnid_index].Contains("28248")
+  || lines[svnid_index].Contains("28247")
+  || lines[svnid_index].Contains("28245")
+  || lines[svnid_index].Contains("28244")
+  || lines[svnid_index].Contains("28243")
+  || lines[svnid_index].Contains("28242")
+  || lines[svnid_index].Contains("28240")
+  || lines[svnid_index].Contains("28237")
+  )
+{
+  commit.AuthorName = "Andras Lasso";
+  commit.AuthorEmail = "lasso@queensu.ca";
+}
+else if (lines[svnid_index].Contains("28241")
+  || lines[svnid_index].Contains("28239")
+  )
+{
+  commit.AuthorName = "Csaba Pinter";
+  commit.AuthorEmail = "csaba.pinter@queensu.ca";
+}
+
+else if (lines[svnid_index].Contains("28238")
+  || lines[svnid_index].Contains("28236")
+  || lines[svnid_index].Contains("28234")
+  || lines[svnid_index].Contains("28233")
+  || lines[svnid_index].Contains("28232")
+  || lines[svnid_index].Contains("28230")
+  || lines[svnid_index].Contains("28229")
+  || lines[svnid_index].Contains("28228")
+  || lines[svnid_index].Contains("28227")
+  )
+{
+  commit.AuthorName = "Jean-Christophe Fillion-Robin";
+  commit.AuthorEmail = "jchris.fillionr@kitware.com";
+}
+
+if (lines[svnid_index].Contains("28221")
+  || lines[svnid_index].Contains("28222")
+  || lines[svnid_index].Contains("28223")
+  || lines[svnid_index].Contains("28224")
+  || lines[svnid_index].Contains("28225")
+  || lines[svnid_index].Contains("28226")
+  || lines[svnid_index].Contains("28227")
+  || lines[svnid_index].Contains("28228")
+  || lines[svnid_index].Contains("28229")
+  || lines[svnid_index].Contains("28230")
+  || lines[svnid_index].Contains("28231")
+  || lines[svnid_index].Contains("28232")
+  || lines[svnid_index].Contains("28233")
+  || lines[svnid_index].Contains("28234")
+  || lines[svnid_index].Contains("28235")
+  || lines[svnid_index].Contains("28236")
+  || lines[svnid_index].Contains("28237")
+  || lines[svnid_index].Contains("28238")
+  || lines[svnid_index].Contains("28239")
+  || lines[svnid_index].Contains("28240")
+  || lines[svnid_index].Contains("28241")
+  || lines[svnid_index].Contains("28242")
+  || lines[svnid_index].Contains("28243")
+  || lines[svnid_index].Contains("28244")
+  || lines[svnid_index].Contains("28245")
+  || lines[svnid_index].Contains("28246")
+  || lines[svnid_index].Contains("28247")
+  || lines[svnid_index].Contains("28248")
+  || lines[svnid_index].Contains("28249")
+  || lines[svnid_index].Contains("28250")
+  || lines[svnid_index].Contains("28251")
+  || lines[svnid_index].Contains("28252")
+  || lines[svnid_index].Contains("28253")
+  || lines[svnid_index].Contains("28254")
+  || lines[svnid_index].Contains("28255")
+  || lines[svnid_index].Contains("28256")
+  || lines[svnid_index].Contains("28257")
+  )
+{
+  commit.CommitterName = "Sam Horvath";
+  commit.CommitterEmail = "sam.horvath@kitware.com";
+}
+
