@@ -420,6 +420,14 @@ else if (lines[svnurl_index].Contains("26987"))
   commit.AuthorName = "Fernando Perez-Garcia";
   commit.AuthorEmail = "fepegar@gmail.com";
 }
+else if (lines[svnurl_index].Contains("27297"))
+{
+  lines.Insert(svnurl_index, "Co-authored-by: Davide Punzo <punzodavide@hotmail.it>");
+}
+else if (lines[svnurl_index].Contains("27974"))
+{
+  lines.Insert(svnurl_index, "Co-authored-by: Davide Punzo <punzodavide@hotmail.it>");
+}
 else if (lines[svnurl_index].Contains("28318"))
 {
   commit.AuthorName = "Mateo Lopez";
