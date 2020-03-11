@@ -72,7 +72,7 @@ git checkout -b master-48-no-data origin/master-48
 ```
   cd ${SOURCE_DIR}
 
-  for REFERENCE_BRANCH in master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
+  for REFERENCE_BRANCH in master master-410 master-411 master-42 master-43 master-431 master-46 master-48; do
 
     #REFERENCE_BRANCH=master
 
