@@ -64,5 +64,13 @@ for (int idx = 0; idx < lines.Count; idx++)
     lines[idx] = lines[idx].Replace("Slicer/Slicer#", "Slicer/SlicerGitSVNArchive#");
 }
 
+// ----------------------------------------------------------------------------
+// Insert svn-url trailer
+// ----------------------------------------------------------------------------
+
+int svnid_index = lines.Count - 2;
+String svn_revision = lines[svnid_index].Split(null)[1].Split('@')[1];
+lines.Insert(svnid_index, "svn-url: http://viewvc.slicer.org/viewvc.cgi/Slicer4?view=revision&revision=" + svn_revision);
+
 commit.Message = string.Join(Environment.NewLine, lines);
 

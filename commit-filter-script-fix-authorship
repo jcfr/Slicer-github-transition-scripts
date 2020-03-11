@@ -362,85 +362,86 @@ for(int idx = lines.Count - 1; idx >= 0; idx--)
 // Restore authorship - See https://www.slicer.org/wiki/Documentation/Labs/TransitionToGit#Authorship
 // ----------------------------------------------------------------------------
 
-int svnid_index = lines.Count - 2;
+int svnurl_index = lines.Count - 3;
 
-//Console.WriteLine("[" + lines[svnid_index] + "]\n");
+//Console.WriteLine("[" + lines[svnurl_index] + "]\n");
 
-if (lines[svnid_index].Contains("22869"))
+if (lines[svnurl_index].Contains("22869"))
 {
   commit.AuthorName = "Franklin King";
   commit.AuthorEmail = "franklin.king@queensu.ca";
 }
-else if (lines[svnid_index].Contains("23080"))
+else if (lines[svnurl_index].Contains("23080"))
 {
-  lines.Insert(svnid_index, "Co-authored-by: Andras Lasso <lasso@queensu.ca>");
+  lines.Insert(svnurl_index, "Co-authored-by: Andras Lasso <lasso@queensu.ca>");
 }
-else if (lines[svnid_index].Contains("23506")
-  || lines[svnid_index].Contains("23758")
-  || lines[svnid_index].Contains("24309"))
+else if (lines[svnurl_index].Contains("23506")
+  || lines[svnurl_index].Contains("23758")
+  || lines[svnurl_index].Contains("24309"))
 {
   commit.AuthorName = "Andras Lasso";
   commit.AuthorEmail = "lasso@queensu.ca";
 }
-else if (lines[svnid_index].Contains("24061"))
+else if (lines[svnurl_index].Contains("24061"))
 {
   commit.AuthorName = "Alireza Mehrtash";
   commit.AuthorEmail = "mehrtash@bwh.harvard.edu";
 }
-else if (lines[svnid_index].Contains("24631"))
+else if (lines[svnurl_index].Contains("24631"))
 {
-  lines.Insert(svnid_index, "Co-authored-by: Max Smolens <max.smolens@kitware.com>");
+  lines.Insert(svnurl_index, "Co-authored-by: Max Smolens <max.smolens@kitware.com>");
 }
-else if (lines[svnid_index].Contains("24720"))
+else if (lines[svnurl_index].Contains("24720"))
 {
   commit.AuthorEmail = "zhangfanmark@gmail.com";
 }
-else if (lines[svnid_index].Contains("25140"))
+else if (lines[svnurl_index].Contains("25140"))
 {
   commit.AuthorName = "Hastings Greer";
   commit.AuthorEmail = "hastings.greer@kitware.com";
 }
-else if (lines[svnid_index].Contains("25744"))
+else if (lines[svnurl_index].Contains("25744"))
 {
-  lines.Insert(svnid_index, "Suggested-by: Alexis Girault <alexis.girault@kitware.com>");
+  lines.Insert(svnurl_index, "Suggested-by: Alexis Girault <alexis.girault@kitware.com>");
 }
-else if (lines[svnid_index].Contains("26841"))
+else if (lines[svnurl_index].Contains("26841"))
 {
   commit.AuthorName = "Gregory C. Sharp";
   commit.AuthorEmail = "gregsharp.geo@yahoo.com";
-  lines.Insert(svnid_index, "Co-authored-by: Jean-Christophe Fillion-Robin <jchris.fillionr@kitware.com>");
+  lines.Insert(svnurl_index, "Co-authored-by: Jean-Christophe Fillion-Robin <jchris.fillionr@kitware.com>");
 }
-else if (lines[svnid_index].Contains("26856"))
+else if (lines[svnurl_index].Contains("26856"))
 {
   commit.AuthorName = "Adam Rankin";
   commit.AuthorEmail = "adam.rankin@gmail.com";
 }
-else if (lines[svnid_index].Contains("26987"))
+else if (lines[svnurl_index].Contains("26987"))
 {
   commit.AuthorName = "Fernando Perez-Garcia";
   commit.AuthorEmail = "fepegar@gmail.com";
 }
-else if (lines[svnid_index].Contains("28318"))
+else if (lines[svnurl_index].Contains("28318"))
 {
   commit.AuthorName = "Mateo Lopez";
 }
-else if (lines[svnid_index].Contains("28328"))
+else if (lines[svnurl_index].Contains("28328"))
 {
   commit.AuthorName = "Kyle Sunderland";
   commit.AuthorEmail = "sunderlandkyl@gmail.com";
-  lines.Insert(svnid_index, "Co-authored-by: Andras Lasso <lasso@queensu.ca>");
+  lines.Insert(svnurl_index, "Co-authored-by: Andras Lasso <lasso@queensu.ca>");
 }
-else if (lines[svnid_index].Contains("28714"))
+else if (lines[svnurl_index].Contains("28714"))
 {
   commit.AuthorName = "Sankhesh Jhaveri";
   commit.AuthorEmail = "sankhesh.jhaveri@kitware.com";
 }
+
 commit.Message = string.Join(Environment.NewLine, lines);
 
 // ----------------------------------------------------------------------------
 // Fix commit messages - See https://www.slicer.org/wiki/Documentation/Labs/TransitionToGit#Commit_message
 // ----------------------------------------------------------------------------
-if (lines[svnid_index].Contains("24857"))
+if (lines[svnurl_index].Contains("24857"))
 {
 commit.Message = @"STYLE: Add test for CLI Node status update
 
@@ -463,5 +464,6 @@ Possible status are the following:
 Note that the status is inconsistently update between synchronous and asynchronous mode. This
 will be addressed in a follow up commit.
 
+svn-url: http://viewvc.slicer.org/viewvc.cgi/Slicer4?view=revision&revision=24857
 git-svn-id: http://svn.slicer.org/Slicer4/trunk@24857 3bd1e089-480b-0410-8dfb-8563597acbee";
 }
