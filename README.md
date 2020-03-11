@@ -209,8 +209,10 @@ git checkout -b master-48-no-data origin/master-48
 
   # master-431
 
+  ORG=Slicer
+  REPO=Slicer
   REMOTE=slicer-git
-  git remote add ${REMOTE} git@github.com:jcfr/Slicer-Git.git
+  git remote add ${REMOTE} git@github.com:${ORG}/${REPO}.git
   for BRANCH in master master-410 master-411 master-42 master-43 master-46 master-48; do
     src_branch=${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history
 
