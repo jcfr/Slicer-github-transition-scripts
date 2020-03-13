@@ -288,12 +288,21 @@ done
 # (maintenance only) Only useful to delete existing tags
 for tag_and_svn_revision in $(cat /tmp/slicer-tag-and-svn-revision); do
   tag=$(echo ${tag_and_svn_revision} | cut -d: -f1)
-  #git push origin :${tag}
+  git push origin :${tag}
   git  tag --delete ${tag}
 done
 
+(10) Remove obsolete "master-*" branches from updated Slicer repository (e.g jcfr/Slicer-Git)
 
-(10) Grab latest changes from master and graft them onto converted master branch (master-no-data-trailers-consolidated-fix-authorship-complete-history)
+git push origin :master-4.10
+git push origin :master-4.1.1
+git push origin :master-4.2
+git push origin :master-4.3
+git push origin :master-4.3.1
+git push origin :master-4.6
+git push origin :master-4.8
+
+(11) Grab latest changes from master and graft them onto converted master branch (master-no-data-trailers-consolidated-fix-authorship-complete-history)
 
 BRANCH=master-no-data-trailers-consolidated-fix-authorship-complete-history
 
