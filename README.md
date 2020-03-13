@@ -189,10 +189,9 @@ git checkout -b master-48-no-data origin/master-48
   BEGIN=$(git merge-base ${MASTER_BRANCH} ${BRANCH})
   END=${BRANCH}
   cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
-  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
-
-  git checkout ${BRANCH}-committer-fixed
-  git branch -D ${BRANCH}
+  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase && \
+  git checkout ${BRANCH}-committer-fixed && \
+  git branch -D ${BRANCH} && \
   git branch -M ${BRANCH}
 
 
@@ -201,10 +200,9 @@ git checkout -b master-48-no-data origin/master-48
   BEGIN=$(git merge-base ${MASTER_BRANCH} ${BRANCH})
   END=${BRANCH}
   cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
-  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
-
-  git checkout ${BRANCH}-committer-fixed
-  git branch -D ${BRANCH}
+  git-rocket-filter ${BEGIN}..${END} --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase && \
+  git checkout ${BRANCH}-committer-fixed && \
+  git branch -D ${BRANCH} && \
   git branch -M ${BRANCH}
 
 (8) Publish
