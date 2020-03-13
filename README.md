@@ -143,26 +143,30 @@ git checkout -b master-48-no-data origin/master-48
 
   cd ${SOURCE_DIR}
 
-  BRANCH=master-42
+  for BRANCH in master-410 master-411 master-42 master-43 master-46 master-48; do
 
-  BRANCH_SUFFIX=-trailers-consolidated-fix-authorship
-  BRANCH=${BRANCH}-no-data${BRANCH_SUFFIX}
+    #BRANCH=master-410
 
-  # Extract SVN revision associated with branching point
-  BRANCHING_SVN_REVISION=$(git rev-list --format=%B --max-parents=0 ${BRANCH} | sed -rn 's/.+(at|of) r?([0-9]+)/\2/p')
-  echo "BRANCHING_SVN_REVISION: ${BRANCHING_SVN_REVISION}"
+    BRANCH_SUFFIX=-trailers-consolidated-fix-authorship
+    BRANCH=${BRANCH}-no-data${BRANCH_SUFFIX}
 
-  # Extract corresponding git sha from master
-  BRANCHING_SHA=$(git log --grep="@${BRANCHING_SVN_REVISION}" --pretty="%H" master-no-data${BRANCH_SUFFIX})
-  echo "BRANCHING_SHA: ${BRANCHING_SHA}"
+    # Extract SVN revision associated with branching point
+    BRANCHING_SVN_REVISION=$(git rev-list --format=%B --max-parents=0 ${BRANCH} | sed -rn 's/.+(at|of) r?([0-9]+)/\2/p')
+    echo "BRANCHING_SVN_REVISION: ${BRANCHING_SVN_REVISION}"
 
-  # Branch history to rebase
-  START=$(git rev-list ${BRANCH} | tail -1)
-  END=$(git rev-list ${BRANCH} -n1)
-  echo "${BRANCH} history to rebase from ${START} to ${END}"
-  
-  git rebase --onto ${BRANCHING_SHA} ${START} ${END} --committer-date-is-author-date
-  git checkout -b ${BRANCH}-complete-history
+    # Extract corresponding git sha from master
+    BRANCHING_SHA=$(git log --grep="@${BRANCHING_SVN_REVISION}" --pretty="%H" master-no-data${BRANCH_SUFFIX})
+    echo "BRANCHING_SHA: ${BRANCHING_SHA}"
+
+    # Branch history to rebase
+    START=$(git rev-list ${BRANCH} | tail -1)
+    END=$(git rev-list ${BRANCH} -n1)
+    echo "${BRANCH} history to rebase from ${START} to ${END}"
+
+    git rebase --onto ${BRANCHING_SHA} ${START} ${END} --committer-date-is-author-date
+    git checkout -b ${BRANCH}-complete-history
+
+  done
 
 
 (6) for consistency create the "-complete-history" associated with "master"
