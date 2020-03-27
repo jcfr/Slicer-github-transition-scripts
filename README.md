@@ -13,3 +13,7 @@ into (2) a git repository only.
   * creating tags
   * publishing updated repository
 
+
+## Scripts
+
+* [update-discourse-posts.py](update-discourse-posts.py): Process all Slicer discourse posts updating GitHub URL of the form `https://github.com/Slicer/Slicer/<sha>` to ensure they reference a valid commit. 
