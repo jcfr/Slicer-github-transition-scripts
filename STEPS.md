@@ -122,8 +122,6 @@ git checkout -b master-48-no-data origin/master-48
   done
 ```
 
-
-
 (5) graft release branches onto master
 
 ```
@@ -164,17 +162,19 @@ git checkout -b master-48-no-data origin/master-48
     git checkout -b ${BRANCH}-complete-history
 
   done
-
+```
 
 (6) for consistency create the "-complete-history" associated with "master"
 
+```
   cd ${SOURCE_DIR}
   BRANCH=master
   git checkout -b ${BRANCH}-no-data${BRANCH_SUFFIX}-complete-history ${BRANCH}-no-data${BRANCH_SUFFIX}
-
+```
 
 (7) Fix commmitter email/name following rebase
 
+```
   #BRANCH=test
   #cp ${TRANSITION_SCRIPTS_DIR}/commit-filter-script-fix-authorship-after-rebase .
   #git-rocket-filter c1850fd482..0255dacd5d --branch ${BRANCH}-committer-fixed  --commit-filter-script ./commit-filter-script-fix-authorship-after-rebase
@@ -201,9 +201,11 @@ git checkout -b master-48-no-data origin/master-48
   git checkout ${BRANCH}-committer-fixed && \
   git branch -D ${BRANCH} && \
   git branch -M ${BRANCH}
+```
 
 (8) Publish
 
+```
   cd ${SOURCE_DIR}
 
   # master-431
@@ -240,7 +242,9 @@ git checkout -b master-48-no-data origin/master-48
 
 (9) Create tags
 
+```
 # (a) Run this in original Slicer checkout
+
 for tag in \
   v4.0.0 \
   v4.0.1 \
@@ -281,16 +285,17 @@ for tag_and_svn_revision in $(cat /tmp/slicer-tag-and-svn-revision); do
   git push origin v${version}
 done
 
-
 # (maintenance only) Only useful to delete existing tags
 for tag_and_svn_revision in $(cat /tmp/slicer-tag-and-svn-revision); do
   tag=$(echo ${tag_and_svn_revision} | cut -d: -f1)
   git push origin :${tag}
   git  tag --delete ${tag}
 done
+```
 
 (10) Remove obsolete "master-*" branches from updated Slicer repository (e.g jcfr/Slicer-Git)
 
+```
 git push origin :master-4.10
 git push origin :master-4.1.1
 git push origin :master-4.2
@@ -298,9 +303,11 @@ git push origin :master-4.3
 git push origin :master-4.3.1
 git push origin :master-4.6
 git push origin :master-4.8
+```
 
 (11) Grab latest changes from master and graft them onto converted master branch (master-no-data-trailers-consolidated-fix-authorship-complete-history)
 
+```
 BRANCH=master-no-data-trailers-consolidated-fix-authorship-complete-history
 
 # backup
@@ -337,3 +344,4 @@ REMOTE=slicer-git
 src_branch=${BRANCH}
 dst_branch=master
 git push ${REMOTE} ${src_branch}:${dst_branch}
+```
