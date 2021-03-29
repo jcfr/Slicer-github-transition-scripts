@@ -50,6 +50,9 @@ def main():
 
     shutil.copyfile(removed_filename, '/tmp/' + removed_filename)
 
+    if not removed_filenames and os.path.exists(removed_filename):
+      os.remove(removed_filename)
+
 if __name__ == '__main__':
     main()
 
