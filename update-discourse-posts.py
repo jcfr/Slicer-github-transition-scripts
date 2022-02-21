@@ -103,6 +103,7 @@ def process_topics(topic_id, retry=RETRY_COUNT):
 
         updated_raw = get_updated_post_raw(post)
         if updated_raw is not None:
+            print("%s> Updating post %s: Found relevant https://github.com/Slicer/Slicer/commit/<sha> URLs" % (topic_id, post_id))
             post.update(raw=updated_raw, edit_reason="Updated SHA in https://github.com/Slicer/Slicer/commit/<sha> URLs following transition to GitHub")
         else:
             print("%s> Skipping post %s: No update" % (topic_id, post_id))
@@ -111,6 +112,6 @@ def process_topics(topic_id, retry=RETRY_COUNT):
 if __name__ == "__main__":
 
     r = Parallel(n_jobs=1, verbose=0)(
-        delayed(process_topics)(topic_id) for topic_id in range(10864, 1, -1)
+        delayed(process_topics)(topic_id) for topic_id in range(8587, 1, -1)
     )
 
